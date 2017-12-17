@@ -1,5 +1,4 @@
 def call(String project) {
-    sh "docker image pull vfarcic/gox"
     sh "docker container run --rm -v \${PWD}:/src vfarcic/gox docker-flow-proxy"
     withCredentials([usernamePassword(
         credentialsId: "github-token-2",
@@ -20,18 +19,17 @@ def call(String project) {
                         releaseMsg = lines[i] + "\n"
                     }
                 }
-                sh "docker image pull vfarcic/github-release"
                 def cmd = """docker container run --rm \
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \
                     -v \${PWD}:/src -w /src \
-                    vfarcic/github-release""""
+                    vfarcic/github-release"""
                 sh "${cmd} git config user.email 'viktor@farcic.com'"
                 sh "${cmd} git config --global user.name 'vfarcic'"
                 sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh """${cmd} github-release release --user vfarcic \
                     --repo ${project} --tag ${currentBuild.displayName} \
-                    --name '${releaseTitle}' --description '${releaseMsg}'""""
+                    --name '${releaseTitle}' --description '${releaseMsg}'"""
                 files = findFiles(glob: "${project}_*")
                 for (def file : files) {
                     sh """${cmd} github-release upload \
