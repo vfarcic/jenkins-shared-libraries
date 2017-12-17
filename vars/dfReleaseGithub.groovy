@@ -17,7 +17,11 @@ release msg [release]"""
                     }
                 }
                 def cmd = "docker container run --rm -e GITHUB_TOKEN=${GITHUB_TOKEN} -v \${PWD}:/src -w /src vfarcic/github-release"
-                sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
+                println "releaseTitle"
+                println releaseTitle
+                println "releaseMsg"
+                println releaseMsg
+                sh "${cmd} git tag -a xxx -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh "${cmd} github-release release --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${releaseTitle}' --description '${releaseMsg}'"
                 files = findFiles(glob: "${project}_*")
