@@ -2,7 +2,7 @@ def call(String project) {
     sh "docker container run --rm -v \${PWD}:/src vfarcic/gox docker-flow-proxy"
     withCredentials([usernamePassword(
         credentialsId: "github-token-2",
-        usernameVariable: "USER",
+        usernameVariable: "GITHUB_USER",
         passwordVariable: "GITHUB_TOKEN"
     )]) {
         script {
@@ -24,7 +24,7 @@ def call(String project) {
                     -v \${PWD}:/src -w /src \
                     vfarcic/github-release"""
                 sh "${cmd} git config user.email 'viktor@farcic.com'"
-                sh "${cmd} git config --global user.name 'vfarcic'"
+                sh "${cmd} git config user.name '${GITHUB_USER}'"
                 sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh """${cmd} github-release release --user vfarcic \
