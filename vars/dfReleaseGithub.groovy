@@ -1,6 +1,6 @@
 def call(String project) {
     sh 'docker container run --rm -it -v $PWD:/src vfarcic/gox docker-flow-proxy'
-    withCredentials([usernamePassword(credentialsId: "github-token", variable: "GIHBUT_TOKEN")]) {
+    withCredentials([credentialsId(credentialsId: "github-token", variable: "GIHBUT_TOKEN")]) {
         script {
             def msg = sh(returnStdout: true, script: "git log --format=%B -1").trim()
             if (msg.contains("[release]")) {
