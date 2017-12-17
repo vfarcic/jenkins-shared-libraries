@@ -22,6 +22,7 @@ def call(String project) {
                 println "---"
                 for (def file : files) {
                     println file
+                    sh "docker container run --rm -it -e GITHUB_TOKEN=${GITHUB_TOKEN} -v $${pwd}:/src -w /src vfarcic/github-release github-release upload --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${file.name}' --file ${file.name}"
                 }
             }
         }
