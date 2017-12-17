@@ -3,6 +3,8 @@ def call(String project) {
     withCredentials([usernamePassword(credentialsId: "github-token-2", usernameVariable: "USER", passwordVariable: "GITHUB_TOKEN")]) {
         script {
             def msg = sh(returnStdout: true, script: "git log --format=%B -1").trim()
+            msg = """release title
+release msg [release]"""
             if (msg.contains("[release]")) {
                 def lines = msg.split("\n")
                 def releaseTitle = ""
