@@ -21,7 +21,10 @@ def call(String project) {
                     }
                 }
                 sh "docker image pull vfarcic/github-release"
-                def cmd = "docker container run --rm -e GITHUB_TOKEN=${GITHUB_TOKEN} -v \${PWD}:/src -w /src vfarcic/github-release"
+                def cmd = """docker container run --rm \
+                    -e GITHUB_TOKEN=${GITHUB_TOKEN} \
+                    -v \${PWD}:/src -w /src \
+                    vfarcic/github-release""""
                 sh "${cmd} git config user.email 'viktor@farcic.com'"
                 sh "${cmd} git config --global user.name 'vfarcic'"
                 sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
@@ -31,7 +34,11 @@ def call(String project) {
                     --name '${releaseTitle}' --description '${releaseMsg}'""""
                 files = findFiles(glob: "${project}_*")
                 for (def file : files) {
-                    sh "${cmd} github-release upload --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${file.name}' --file ${file.name}"
+                    sh """${cmd} github-release upload \
+                        --user vfarcic --repo ${project} \
+                        --tag ${currentBuild.displayName} \
+                        --name '${file.name}' \
+                        --file ${file.name}"""
                 }
             }
         }
