@@ -3,8 +3,6 @@ def call(String project) {
     withCredentials([usernamePassword(credentialsId: "github-token-2", usernameVariable: "USER", passwordVariable: "GITHUB_TOKEN")]) {
         script {
             def msg = sh(returnStdout: true, script: "git log --format=%B -1").trim()
-            msg = """release title
-release msg [release]"""
             if (msg.contains("[release]")) {
                 msg = msg.replace("[release]", "")
                 def lines = msg.split("\n")
@@ -18,6 +16,8 @@ release msg [release]"""
                     }
                 }
                 def cmd = "docker container run --rm -e GITHUB_TOKEN=${GITHUB_TOKEN} -v \${PWD}:/src -w /src vfarcic/github-release"
+                sh "${cmd} git config user.email 'viktor@farcic.com'"
+                sh "${cmd} git config --global user.name 'Your Name'"
                 sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh "${cmd} github-release release --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${releaseTitle}' --description '${releaseMsg}'"
