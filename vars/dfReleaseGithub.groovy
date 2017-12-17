@@ -21,7 +21,7 @@ release msg [release]"""
                 println releaseTitle
                 println "releaseMsg"
                 println releaseMsg
-                sh "${cmd} git tag -a "${currentBuild.displayName}" -m '${releaseMsg}'"
+                sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh "${cmd} github-release release --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${releaseTitle}' --description '${releaseMsg}'"
                 files = findFiles(glob: "${project}_*")
