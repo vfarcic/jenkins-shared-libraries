@@ -6,6 +6,7 @@ def call(String project) {
             msg = """release title
 release msg [release]"""
             if (msg.contains("[release]")) {
+                msg = msg.replace("[release]", "")
                 def lines = msg.split("\n")
                 def releaseTitle = ""
                 def releaseMsg = ""
@@ -17,18 +18,11 @@ release msg [release]"""
                     }
                 }
                 def cmd = "docker container run --rm -e GITHUB_TOKEN=${GITHUB_TOKEN} -v \${PWD}:/src -w /src vfarcic/github-release"
-                println "releaseTitle"
-                println releaseTitle
-                println "releaseMsg"
-                println releaseMsg
                 sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh "${cmd} github-release release --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${releaseTitle}' --description '${releaseMsg}'"
                 files = findFiles(glob: "${project}_*")
-                println files
-                println "---"
                 for (def file : files) {
-                    println file
                     sh "${cmd} github-release upload --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${file.name}' --file ${file.name}"
                 }
             }
