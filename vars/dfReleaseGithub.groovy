@@ -19,8 +19,6 @@ def call(String project) {
                         releaseMsg = lines[i] + "\n"
                     }
                 }
-                sh "git config user.email 'viktor@farcic.com'"
-                sh "git config user.name '${GITHUB_USER}'"
                 sh "git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${project}.git --tags"
                 def cmd = """docker container run --rm \
