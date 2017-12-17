@@ -17,7 +17,7 @@ def call(String project) {
                 }
                 def cmd = "docker container run --rm -e GITHUB_TOKEN=${GITHUB_TOKEN} -v \${PWD}:/src -w /src vfarcic/github-release"
                 sh "${cmd} git config user.email 'viktor@farcic.com'"
-                sh "${cmd} git config --global user.name 'Your Name'"
+                sh "${cmd} git config --global user.name 'vfarcic'"
                 sh "${cmd} git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "${cmd} git push --tags"
                 sh "${cmd} github-release release --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${releaseTitle}' --description '${releaseMsg}'"
