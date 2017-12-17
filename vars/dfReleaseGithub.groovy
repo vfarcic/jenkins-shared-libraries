@@ -15,7 +15,14 @@ def call(String project) {
                     }
                 }
                 sh "docker container run --rm -it -e GITHUB_TOKEN=${GITHUB_TOKEN} -v ${pwd}:/src -w /src vfarcic/github-release git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
-                sh "docker container run --rm -it -e GITHUB_TOKEN=${GITHUB_TOKEN} -v ${pwd}:/src -w /src vfarcic/github-release git push --tags
+                sh "docker container run --rm -it -e GITHUB_TOKEN=${GITHUB_TOKEN} -v ${pwd}:/src -w /src vfarcic/github-release git push --tags"
+                sh "docker container run --rm -it -e GITHUB_TOKEN=${GITHUB_TOKEN} -v ${pwd}:/src -w /src vfarcic/github-release github-release release --user vfarcic --repo ${project} --tag ${currentBuild.displayName} --name '${releaseTitle}' --description '${releaseMsg}'"
+                files = findFiles(glob: "${project}_*")
+                println files
+                println "---"
+                for (def file : files) {
+                    println file
+                }
             }
         }
     }
