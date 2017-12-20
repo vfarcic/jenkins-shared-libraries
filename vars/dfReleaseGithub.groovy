@@ -1,5 +1,5 @@
 def call(String project) {
-    sh "docker container run --rm -v \${PWD}:/src vfarcic/gox docker-flow-proxy"
+    sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
     withCredentials([usernamePassword(
         credentialsId: "github-token-2",
         usernameVariable: "GITHUB_USER",
