@@ -1,5 +1,4 @@
 def call(String project) {
-    sh "docker container run --rm -v \${PWD}:/src vfarcic/gox docker-flow-proxy"
     withCredentials([usernamePassword(
         credentialsId: "github-token-2",
         usernameVariable: "GITHUB_USER",
@@ -19,6 +18,7 @@ def call(String project) {
                         releaseMsg = lines[i] + "\n"
                     }
                 }
+                sh "docker container run --rm -v \${PWD}:/src vfarcic/gox docker-flow-proxy"
                 sh "git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${project}.git --tags"
                 def cmd = """docker container run --rm \
