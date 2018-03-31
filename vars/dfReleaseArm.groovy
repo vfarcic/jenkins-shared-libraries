@@ -6,8 +6,10 @@ def call(String project) {
         tar xzf qemu-arm-static.tar.gz
         popd"
     """
-    sh "docker image build --build-arg PLATFORM=linux-arm -f Dockerfile.linux-arm -t vfarcic/${project}:${env.BUILD_NUMBER}-arm ."
-    sh "docker image push vfarcic/${project}:${env.BUILD_NUMBER}-arm"
-    sh "docker image tag vfarcic/${project}:${env.BUILD_NUMBER}-arm vfarcic/${project}:latest-arm"
+    sh "docker image build --build-arg PLATFORM=linux-arm -f Dockerfile.linux-arm -t vfarcic/${project}:${currentBuild.displayName}-arm ."
+    dockerLogin()
+    sh "docker image push vfarcic/${project}:${currentBuild.displayName}-arm"
+    sh "docker image tag vfarcic/${project}:${currentBuild.displayName}-arm vfarcic/${project}:latest-arm"
     sh "docker image push vfarcic/${project}:latest-arm"
+    dockerLogout()
 }
