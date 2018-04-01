@@ -11,5 +11,13 @@ def call(String project) {
     sh "docker image push vfarcic/${project}:${currentBuild.displayName}-arm"
     sh "docker image tag vfarcic/${project}:${currentBuild.displayName}-arm vfarcic/${project}:latest-arm"
     sh "docker image push vfarcic/${project}:latest-arm"
+    
+    sh """bash -c "
+        curl -L -o manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
+        chmod +x manifest-tool"
+    """
+    
+    sh """./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}-arm""""
+    sh """./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:latest-arm""""
     dockerLogout()
 }
