@@ -17,7 +17,7 @@ def call(String project) {
         chmod +x manifest-tool"
     """
     
-    sh """./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${TRAVIS_TAG}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}-arm""""
-    sh """./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${TRAVIS_TAG}-OS-ARCH" --target "vfarcic/${project}:latest-arm""""
+    sh """./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}-arm""""
+    sh """./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:latest-arm""""
     dockerLogout()
 }
