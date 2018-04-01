@@ -1,6 +1,6 @@
 def call(String project) {
     withCredentials([usernamePassword(
-        credentialsId: "github-token",
+        credentialsId: "github-token-2",
         usernameVariable: "GITHUB_USER",
         passwordVariable: "GITHUB_TOKEN"
     )]) {
