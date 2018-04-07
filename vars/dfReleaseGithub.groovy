@@ -7,6 +7,7 @@ def call(String project) {
         script {
             def msg = sh(returnStdout: true, script: "git log --format=%B -1").trim()
             if (msg.contains("[release]")) {
+                echo "Creating a release!"
                 msg = msg.replace("[release]", "")
                 def lines = msg.split("\n")
                 def releaseTitle = ""
@@ -18,6 +19,8 @@ def call(String project) {
                         releaseMsg = lines[i] + "\n"
                     }
                 }
+            } else {
+                echo "Not creating a release!"
             }
             sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
             if (msg.contains("[release]")) {
