@@ -6,10 +6,28 @@ def call(String project) {
         tar xzf qemu-arm-static.tar.gz
         popd"
     """
-    sh "docker image build --build-arg PLATFORM=linux-arm -f Dockerfile.linux-arm -t dockerflow/${project}:${currentBuild.displayName}-arm ."
-    dfLogin()
-    sh "docker image push dockerflow/${project}:${currentBuild.displayName}-arm"
-    sh "docker image tag dockerflow/${project}:${currentBuild.displayName}-arm dockerflow/${project}:latest-arm"
-    sh "docker image push dockerflow/${project}:latest-arm"
-    dockerLogout()
+    
+    // Build docker image for linux-arm
+    sh "docker image build --build-arg PLATFORM=linux-arm -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
+    
+    // login docker
+    dockerLogin()
+    
+    // Tag docker image
+    sh "docker image tag dockerflow/${project}:linux-arm dockerflow/${project}:${currentBuild.displayName}-linux-arm"
+    
+    // Push docker image
+    sh "docker image push dockerflow/${project}:${currentBuild.displayName}-linux-arm"
+
+    // Download manifest-tool
+    sh """bash -c "
+        curl -L -o manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
+        chmod +x manifest-tool"
+    """
+    
+    // Create and push manifest list
+    sh '''./manifest-tool push from-args --platforms linux/arm --template "dockerflow/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}"'''    
+    sh '''./manifest-tool push from-args --platforms linux/arm --template "dockerflow/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:latest"'''
+
+  dockerLogout()
 }
