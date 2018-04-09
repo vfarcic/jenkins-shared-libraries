@@ -26,8 +26,8 @@ def call(String project) {
     """
     
     // Create and push manifest list
-    sh "./manifest-tool push from-args --platforms linux/arm --template dockerflow/${project}:${currentBuild.displayName}-OS-ARCH --target vfarcic/${project}:${currentBuild.displayName}"
-    sh "./manifest-tool push from-args --platforms linux/arm --template dockerflow/${project}:${currentBuild.displayName}-OS-ARCH --target vfarcic/${project}:latest"
+    sh "./manifest-tool push from-args --platforms linux/arm --template dockerflow/${project}:${currentBuild.displayName}-OS-ARCH --target dockerflow/${project}:${currentBuild.displayName}"
+    sh "./manifest-tool push from-args --platforms linux/arm --template dockerflow/${project}:${currentBuild.displayName}-OS-ARCH --target dockerflow/${project}:latest"
 
     dockerLogout()
 }
