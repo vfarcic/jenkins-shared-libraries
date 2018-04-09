@@ -12,9 +12,6 @@ def call(String project) {
     //sh "docker tag dockerflow/${project} dockerflow/${project}:beta"
     
     dfLogin()
-    // Push image for linux-amd64
-    sh "docker image push dockerflow/${project}:${currentBuild.displayName}-linux-amd64"
-    
     //sh "docker image push dockerflow/${project}:beta"
     sh "docker image push dockerflow/${project}-test"
     dockerLogout()
