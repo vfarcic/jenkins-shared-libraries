@@ -6,18 +6,28 @@ def call(String project) {
         tar xzf qemu-arm-static.tar.gz
         popd"
     """
-    sh "docker image build --build-arg PLATFORM=linux-arm -f Dockerfile.linux-arm -t vfarcic/${project}:${currentBuild.displayName}-arm ."
+    
+    // Build docker image for linux-arm
+    sh "docker image build --build-arg PLATFORM=linux-arm -t vfarcic/${project}:linux-arm -f Dockerfile.linux-arm ."
+    
+    // login docker
     dockerLogin()
-    sh "docker image push vfarcic/${project}:${currentBuild.displayName}-arm"
-    sh "docker image tag vfarcic/${project}:${currentBuild.displayName}-arm vfarcic/${project}:latest-arm"
-    sh "docker image push vfarcic/${project}:latest-arm"
     
-    // sh """bash -c "
-    //     curl -L -o manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
-    //     chmod +x manifest-tool"
-    // """
+    // Tag docker image
+    sh "docker image tag vfarcic/${project}:linux-arm vfarcic/${project}:${currentBuild.displayName}-linux-arm"
     
-    // sh '''./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}-arm"'''
-    // sh '''./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:latest-arm"'''
-    dockerLogout()
+    // Push docker image
+    sh "docker image push vfarcic/${project}:${currentBuild.displayName}-linux-arm"
+
+    // Download manifest-tool
+    sh """bash -c "
+        curl -L -o manifest-tool https://github.com/estesp/manifest-tool/releases/download/v0.7.0/manifest-tool-linux-amd64
+        chmod +x manifest-tool"
+    """
+    
+    // Create and push manifest list
+    sh '''./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}"'''    
+    sh '''./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:latest"'''
+
+  dockerLogout()
 }
