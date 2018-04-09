@@ -28,6 +28,6 @@ def call(String project) {
     // Create and push manifest list
     sh '''./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:${currentBuild.displayName}"'''    
     sh '''./manifest-tool push from-args --platforms linux/arm --template "vfarcic/${project}:${currentBuild.displayName}-OS-ARCH" --target "vfarcic/${project}:latest"'''
-    
-    dockerLogout()
+
+  dockerLogout()
 }

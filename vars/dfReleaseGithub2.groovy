@@ -7,7 +7,6 @@ def call(String project) {
         script {
             def msg = sh(returnStdout: true, script: "git log --format=%B -1").trim()
             if (msg.contains("[release]")) {
-                echo "Creating a release!"
                 msg = msg.replace("[release]", "")
                 def lines = msg.split("\n")
                 def releaseTitle = ""
@@ -19,8 +18,6 @@ def call(String project) {
                         releaseMsg = lines[i] + "\n"
                     }
                 }
-            } else {
-                echo "Not creating a release!"
             }
             sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
             if (msg.contains("[release]")) {
@@ -30,13 +27,13 @@ def call(String project) {
                     -e GITHUB_TOKEN=${GITHUB_TOKEN} \
                     -v \${PWD}:/src -w /src \
                     vfarcic/github-release"""
-                sh """${cmd} github-release release --user vfarcic \
+                sh """${cmd} github-release release --user docker-flow \
                     --repo ${project} --tag ${currentBuild.displayName} \
                     --name '${releaseTitle}' --description '${releaseMsg}'"""
                 files = findFiles(glob: "${project}_*")
                 for (def file : files) {
                     sh """${cmd} github-release upload \
-                        --user vfarcic --repo ${project} \
+                        --user docker-flow --repo ${project} \
                         --tag ${currentBuild.displayName} \
                         --name '${file.name}' \
                         --file ${file.name}"""
