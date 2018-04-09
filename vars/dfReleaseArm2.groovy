@@ -11,7 +11,7 @@ def call(String project) {
     sh "docker image build --build-arg PLATFORM=linux-arm -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
     
     // login docker
-    dockerLogin()
+    dfLogin()
     
     // Tag docker image
     sh "docker image tag dockerflow/${project}:linux-arm dockerflow/${project}:${currentBuild.displayName}-linux-arm"
