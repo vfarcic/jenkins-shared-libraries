@@ -22,7 +22,9 @@ def call(String project) {
             } else {
                 echo "Not creating a release!"
             }
+            echo "000"
             sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
+            echo "111"
             if (msg.contains("[release]")) {
                 sh "git tag -a ${currentBuild.displayName} -m '${releaseMsg}'"
                 sh "git push https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/${GITHUB_USER}/${project}.git --tags"
@@ -42,6 +44,7 @@ def call(String project) {
                         --file ${file.name}"""
                 }
             }
+            echo "222"
         }
     }
 }

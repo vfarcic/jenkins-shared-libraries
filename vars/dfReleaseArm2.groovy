@@ -1,5 +1,7 @@
 def call(String project) {
+    echo "333"
     sh "docker run --rm --privileged multiarch/qemu-user-static:register --reset"
+    echo "444"
     sh "mkdir tmp"
     sh """bash -c "pushd tmp
         curl -L -o qemu-arm-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/v2.11.0/qemu-arm-static.tar.gz
