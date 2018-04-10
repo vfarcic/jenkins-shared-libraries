@@ -9,10 +9,10 @@ def call(String project) {
     sh "docker tag dockerflow/${project}:linux-amd64 dockerflow/${project}:${currentBuild.displayName}-linux-amd64"
     
     sh "docker tag dockerflow/${project}-docs dockerflow/${project}-docs:${currentBuild.displayName}"
-    //sh "docker tag dockerflow/${project} dockerflow/${project}:beta"
+    sh "docker tag dockerflow/${project} dockerflow/${project}:beta"
     
     dfLogin()
-    //sh "docker image push dockerflow/${project}:beta"
+    sh "docker image push dockerflow/${project}:beta"
     sh "docker image push dockerflow/${project}-test"
     dockerLogout()
 }
