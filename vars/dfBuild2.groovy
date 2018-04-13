@@ -1,7 +1,8 @@
+/*******************************************
+ * Build and tag images
+ ******************************************/ 
 def call(String project) {
-    /***************************************
-     * Build images
-     **************************************/
+
     // Build image for linux-amd64
     sh "docker image build --build-arg PLATFORM=linux-amd64 -t dockerflow/${project}:linux-amd64 ."
     
@@ -23,9 +24,6 @@ def call(String project) {
     // Build docker image for linux-arm
     sh "docker image build --build-arg PLATFORM=linux-arm -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
     
-    /***************************************
-     * Tag images
-     **************************************/
     // Tag image for linux-amd64
     sh "docker tag dockerflow/${project}:linux-amd64 dockerflow/${project}:${currentBuild.displayName}-linux-amd64"
     
@@ -38,9 +36,6 @@ def call(String project) {
     // Tag image for beta 
     sh "docker tag dockerflow/${project} dockerflow/${project}:beta"
     
-    /***************************************
-     * Push images
-     **************************************/
     dfLogin()
     
     // Push image for beta 
