@@ -1,5 +1,5 @@
 /*******************************************
- * Release multi-arch images to docker hub.
+ * Release images to docker hub.
  *******************************************/
 def call(String project, gox = false) {
 
