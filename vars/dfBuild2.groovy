@@ -19,6 +19,7 @@ def call(String project) {
         tar xzf qemu-arm-static.tar.gz
         popd"
     """
+    sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
     
     // Build docker image for linux-arm
     sh "docker image build --build-arg PLATFORM=linux-arm -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
