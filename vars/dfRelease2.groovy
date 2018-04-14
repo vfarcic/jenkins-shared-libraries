@@ -2,7 +2,7 @@
  * Release images to docker hub.
  *******************************************/
 def call(String project, gox = false) {
-
+  
     dfLogin()
     
     // Push image for linux-amd64
