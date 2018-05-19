@@ -3,7 +3,7 @@
  ******************************************/ 
 def call(String project) {
     // Build image for linux-amd64
-    sh "docker image build --build-arg PLATFORM=linux-amd64 -t dockerflow/${project}:linux-amd64 ."
+    sh "docker image build -t dockerflow/${project}:linux-amd64 ."
     
     // Build image for test 
     sh "docker image build -t dockerflow/${project}-test -f Dockerfile.test ."
@@ -22,7 +22,7 @@ def call(String project) {
     sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
     
     // Build docker image for linux-arm
-    sh "docker image build --build-arg PLATFORM=linux-arm -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
+    sh "docker image build -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
     
     // Tag image for linux-amd64
     sh "docker tag dockerflow/${project}:linux-amd64 dockerflow/${project}:${currentBuild.displayName}-linux-amd64"
