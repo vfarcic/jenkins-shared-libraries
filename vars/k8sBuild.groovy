@@ -1,5 +1,5 @@
-def call() {
-    sh "sudo docker image build -t ${env.IMAGE}:${env.TAG_BETA} ."
+def call(String image, String tag) {
+    sh "sudo docker image build -t ${image}:${tag} ."
     withCredentials([usernamePassword(
         credentialsId: "docker",
         usernameVariable: "USER",
@@ -7,5 +7,5 @@ def call() {
     )]) {
         sh "sudo docker login -u $USER -p $PASS"
     }
-    sh "sudo docker image push ${env.IMAGE}:${env.TAG_BETA}"
+    sh "sudo docker image push ${image}:${tag}"
 }
