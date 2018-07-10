@@ -1,0 +1,11 @@
+<p>Deletes a HELM beta release</p>
+<p><strong>Arguments:</strong></p>
+<ul>
+    <li><strong>project</strong>: the name of the project (e.g. <code>go-demo-3</code>).</li>
+</ul>
+<p><strong>Requirements:</strong></p>
+<ul>
+    <li>A node with HELM installed.</li>
+    <li><code>[PROJECT]-build</code> Namespace</li>
+    <li>Tiller deployed to the <code>[PROJECT]-build</code> Namespace</li>
+</ul>

@@ -2,7 +2,7 @@
 The image is tagged with the <strong>build display name</strong> suffixed with the <strong>branch name</strong></p>
 <p><strong>Arguments:</strong></p>
 <ul>
-    <li><strong>image</strong>: The name of the image.</li>
+    <li><strong>image</strong>: the name of the Docker image (e.g. <code>vfarcic/go-demo-3</code>).</li>
 </ul>
 <p><strong>Requirements:</strong></p>
 <ul>
