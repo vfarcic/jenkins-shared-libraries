@@ -1,5 +1,7 @@
-<p>Builds a Docker image with a <strong>beta release</strong>.
+## Builds a Docker image with a <strong>beta release</strong>.
+
 The image is tagged with the <strong>build display name</strong> suffixed with the <strong>branch name</strong></p>
+
 <p><strong>Arguments:</strong></p>
 <ul>
     <li><strong>image</strong>: the name of the Docker image (e.g. <code>vfarcic/go-demo-3</code>).</li>
