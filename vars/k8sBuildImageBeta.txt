@@ -1,4 +1,4 @@
-## Builds a Docker image with a <strong>beta release</strong>.
+## Builds a Docker image with a **beta release**.
 
 The image is tagged with the <strong>build display name</strong> suffixed with the <strong>branch name</strong></p>
 
