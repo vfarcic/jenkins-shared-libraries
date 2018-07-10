@@ -1,0 +1,11 @@
+<p>Builds a Docker image with a <strong>beta release</strong>.
+The image is tagged with the <strong>build display name</strong> suffixed with the <strong>branch name</strong></p>
+<p><strong>Arguments:</strong></p>
+<ul>
+    <li><strong>image</strong>: The name of the image.</li>
+</ul>
+<p><strong>Requirements:</strong></p>
+<ul>
+    <li>A node with Docker installed.</li>
+    <li>Docker Hub credentials with the ID <strong>docker</strong></li>
+</ul>
