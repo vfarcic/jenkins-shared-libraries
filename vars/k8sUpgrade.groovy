@@ -1,4 +1,4 @@
-def call(String chart, String tag, string address) {
+def call(chart, tag, address) {
     sh """helm upgrade \
         ${chart} \
         helm/go-demo-3 -i \
