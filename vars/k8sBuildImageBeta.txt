@@ -1,13 +1,12 @@
-## Builds a Docker image with a **beta release**.
+## Builds a Docker image with a beta release.
 
-The image is tagged with the <strong>build display name</strong> suffixed with the <strong>branch name</strong></p>
+The image is tagged with the **build display name** suffixed with the **branch name**
 
-<p><strong>Arguments:</strong></p>
-<ul>
-    <li><strong>image</strong>: the name of the Docker image (e.g. <code>vfarcic/go-demo-3</code>).</li>
-</ul>
-<p><strong>Requirements:</strong></p>
-<ul>
-    <li>A node with Docker installed.</li>
-    <li>Docker Hub credentials with the ID <strong>docker</strong></li>
-</ul>
+**Arguments:**
+
+* **image**: the name of the Docker image (e.g. `vfarcic/go-demo-3`).
+
+**Requirements:**
+
+* A node with Docker installed.
+* Docker Hub credentials with the ID **docker**
