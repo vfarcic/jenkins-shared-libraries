@@ -8,5 +8,5 @@ def call(project, domain, extraValues = "") {
         --tiller-namespace ${project}-build \
         --set image.tag=${tagBeta} \
         --set ingress.host=${addr.toLowerCase()} \
-        ${extraArgs}"""
+        ${extraValues}"""
 }
