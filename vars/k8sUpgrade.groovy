@@ -5,6 +5,6 @@ def call(project, addr) {
         --tiller-namespace ${project}-build \
         --namespace ${project} \
         --set image.tag=${currentBuild.displayName} \
-        --set ingress.host=${addr}
+        --set ingress.host=${addr} \
         --reuse-values"""
 }
