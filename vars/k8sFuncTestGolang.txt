@@ -1,0 +1,13 @@
+## Runs functional tests in Go
+
+Executes the tests with `FunctionalTest` in their name
+
+**Arguments:**
+
+* **project**: the name of the project (e.g. `go-demo-3`).
+* **domain**: a fully qualified root domain to which the application is deployed
+
+**Requirements:**
+
+* A node with Go
+

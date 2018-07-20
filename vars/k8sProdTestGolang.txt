@@ -1,0 +1,11 @@
+## Runs production tests in Go
+
+Executes the tests with `ProductionTest` in their name
+
+**Arguments:**
+
+* **address**: the full address of the application under test
+
+**Requirements:**
+
+* A node with Go

@@ -1,4 +1,4 @@
-## Deletes a HELM beta release
+## Rolls back to the previous Helm installation
 
 **Arguments:**
 
@@ -7,5 +7,3 @@
 **Requirements:**
 
 * A node with HELM
-* `[PROJECT]-build` Namespace
-* Tiller deployed to the `[PROJECT]-build` Namespace

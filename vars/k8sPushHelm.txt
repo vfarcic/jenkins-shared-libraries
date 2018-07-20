@@ -1,0 +1,15 @@
+## Packages and pushes a Helm package to ChartMuseum
+
+A local Chart is packaged and pushed toChartMuseum
+
+**Arguments:**
+
+* **project**: the name of the project (e.g. `go-demo-3`).
+* **chartVersion**: the version of the local Chart (e.g. `0.0.1`).
+* **museumAddr**: the full address of a ChartMuseum instance
+
+**Requirements:**
+
+* A node with HELM and curl
+* Credentials with the ID `chartmuseum`
+* A Chart in `helm/[PROJECT]` directory
