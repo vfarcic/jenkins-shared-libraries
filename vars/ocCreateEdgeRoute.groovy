@@ -5,5 +5,5 @@ def call(project, address) {
             --service ${project} \
             --insecure-policy Allow \
             --hostname ${address}"""
-    }
+    } catch(e) {}
 }
