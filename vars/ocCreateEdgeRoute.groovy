@@ -1,8 +1,7 @@
 def call(project, address) {
-    chartName = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
-    sh """oc -n go-demo-3-build \
+    sh """oc -n ${project} \
         create route edge \
-        --service ${chartName.toLowerCase()} \
+        --service ${project} \
         --insecure-policy Allow \
         --hostname ${address}"""
 }
