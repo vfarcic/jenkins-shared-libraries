@@ -1,0 +1,9 @@
+## Waits until the beta release of the application is rolled out
+
+**Arguments:**
+
+* **project**: the name of the project (e.g. `go-demo-3`).
+
+**Requirements:**
+
+* A node with `kubectl`

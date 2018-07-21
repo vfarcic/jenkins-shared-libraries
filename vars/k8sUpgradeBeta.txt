@@ -1,0 +1,11 @@
+## Upgrades the beta release of the application
+
+**Arguments:**
+
+* **project**: the name of the project (e.g. `go-demo-3`).
+* **domain**: the domain used to construct the full and unique address of the application
+* **extraValues**: additional values that should be passed to `helm update` (e.g., `--set replicas=5`)
+
+**Requirements:**
+
+* A node with `helm`

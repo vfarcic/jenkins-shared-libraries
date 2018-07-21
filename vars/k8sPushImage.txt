@@ -1,4 +1,4 @@
- ## Tags and pushes production releases to Docker Hub
+## Tags and pushes production releases to Docker Hub
 
 An existing image is pulled and tagged as the current build name, as well as `latest`. Both tags are pushed to Docker Hub
 
