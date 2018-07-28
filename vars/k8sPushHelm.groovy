@@ -5,8 +5,14 @@ def call(project, chartVersion, museumAddr) {
         usernameVariable: "USER",
         passwordVariable: "PASS"
     )]) {
+        def package
+        if (chartVersion == "") {
+            package = sh returnStdout: true, script: "ls project*"
+        } else {
+            package = "${project}-${chartVersion}.tgz"
+        }
         sh """curl -u $USER:$PASS \
-            --data-binary "@${project}-${chartVersion}.tgz" \
+            --data-binary "@${package}" \
         http://${museumAddr}/api/charts"""
     }
 }
