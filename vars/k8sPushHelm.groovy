@@ -6,7 +6,7 @@ def call(project, chartVersion, museumAddr) {
         passwordVariable: "PASS"
     )]) {
         sh """curl -u $USER:$PASS \
-            --data-binary "helm/@${project}-${chartVersion}.tgz" \
+            --data-binary "@helm/${project}-${chartVersion}.tgz" \
         http://${museumAddr}/api/charts"""
     }
 }
