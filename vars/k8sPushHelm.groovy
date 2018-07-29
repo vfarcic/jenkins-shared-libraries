@@ -2,7 +2,7 @@ def call(project, chartVersion, museumAddr) {
     sh "helm package helm/${project}"
     packageName = "${project}-${chartVersion}.tgz"
     if (chartVersion == "") {
-        packageName = sh returnStdout: true, script: "ls project*"
+        packageName = sh returnStdout: true, script: "ls ${project}*"
     }
     withCredentials([usernamePassword(
         credentialsId: "chartmuseum",
