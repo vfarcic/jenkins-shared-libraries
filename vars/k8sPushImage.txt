@@ -5,6 +5,7 @@ An existing image is pulled and tagged as the current build name, as well as `la
 **Arguments:**
 
 * **image**: the name of the Docker image (e.g. `vfarcic/go-demo-3`).
+* **sudo**: Whether to prefix commands with `sudo`. Default value is `true`
 
 **Requirements:**
 
