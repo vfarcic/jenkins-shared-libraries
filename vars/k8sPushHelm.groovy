@@ -5,7 +5,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false) {
         packageName = sh(returnStdout: true, script: "ls ${project}*").trim()
     }
     if (replaceTag) {
-        yaml = readYaml file: "heml/${project}/Chart.yaml"
+        yaml = readYaml file: "helm/${project}/Chart.yaml"
         echo "${yaml.version}"
     }
     withCredentials([usernamePassword(
