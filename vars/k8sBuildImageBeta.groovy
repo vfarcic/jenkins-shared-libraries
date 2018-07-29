@@ -1,7 +1,7 @@
 def call(image, sudo = true) {
     tagBeta = "${currentBuild.displayName}-${env.BRANCH_NAME}"
     prefix = ""
-    if sudo {
+    if (sudo) {
         prefix = "sudo "
     }
     sh """${prefix}docker image build \
