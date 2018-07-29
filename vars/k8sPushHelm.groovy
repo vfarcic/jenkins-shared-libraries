@@ -7,6 +7,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false) {
     if (replaceTag) {
         yaml = readYaml file: "helm/${project}/values.yaml"
         yaml.image.tag = currentBuild.displayName
+        sh "rm -f helm/${project}/values.yaml"
         writeYaml file: "helm/${project}/values.yaml", data: yaml
     }
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
