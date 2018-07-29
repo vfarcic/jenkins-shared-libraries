@@ -4,7 +4,8 @@ The image is tagged with the **build display name** suffixed with the **branch n
 
 **Arguments:**
 
-* **image**: the name of the Docker image (e.g. `vfarcic/go-demo-3`).
+* **image**: The name of the Docker image (e.g. `vfarcic/go-demo-3`).
+* **sudo**: Whether to prefix commands with `sudo`. Default value is `true`
 
 **Requirements:**
 

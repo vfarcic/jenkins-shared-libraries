@@ -1,15 +1,19 @@
-def call(image) {
+def call(image, sudo = true) {
     tagBeta = "${currentBuild.displayName}-${env.BRANCH_NAME}"
-    sh """sudo docker image build \
+    prefix = ""
+    if (sudo) {
+        prefix = "sudo "
+    }
+    sh """${prefix}docker image build \
         -t ${image}:${tagBeta} ."""
     withCredentials([usernamePassword(
         credentialsId: "docker",
         usernameVariable: "USER",
         passwordVariable: "PASS"
     )]) {
-        sh """sudo docker login \
+        sh """${prefix}docker login \
             -u $USER -p $PASS"""
     }
-    sh """sudo docker image push \
+    sh """${prefix}docker image push \
         ${image}:${tagBeta}"""
 }
