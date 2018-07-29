@@ -4,9 +4,10 @@ A local Chart is packaged and pushed toChartMuseum
 
 **Arguments:**
 
-* **project**: the name of the project (e.g. `go-demo-3`).
-* **chartVersion**: the version of the local Chart (e.g. `0.0.1`). If empty, version of the chart will be discovered from the name of the package.
-* **museumAddr**: the full address of a ChartMuseum instance
+* **project**: The name of the project (e.g. `go-demo-3`).
+* **chartVersion**: The version of the local Chart (e.g. `0.0.1`). If empty, version of the chart will be discovered from the name of the package.
+* **museumAddr**: The full address of a ChartMuseum instance
+* **replaceTag**: Whether to replace `tag: latest` in `helm/[PROJECT]/values.yaml` with the new tag.
 
 **Requirements:**
 

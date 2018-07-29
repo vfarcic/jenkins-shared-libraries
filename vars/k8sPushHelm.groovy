@@ -1,4 +1,4 @@
-def call(project, chartVersion, museumAddr, replaceTag) {
+def call(project, chartVersion, museumAddr, replaceTag = false) {
     sh "helm package helm/${project}"
     packageName = "${project}-${chartVersion}.tgz"
     if (chartVersion == "") {
