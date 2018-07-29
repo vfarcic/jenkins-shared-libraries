@@ -1,8 +1,8 @@
 def call(project, chartVersion, museumAddr) {
     sh "helm package helm/${project}"
-    package = "${project}-${chartVersion}.tgz"
+    packageName = "${project}-${chartVersion}.tgz"
     if (chartVersion == "") {
-        package = sh returnStdout: true, script: "ls project*"
+        packageName = sh returnStdout: true, script: "ls project*"
     }
     withCredentials([usernamePassword(
         credentialsId: "chartmuseum",
@@ -10,7 +10,7 @@ def call(project, chartVersion, museumAddr) {
         passwordVariable: "PASS"
     )]) {
         sh """curl -u $USER:$PASS \
-            --data-binary "@${package}" \
+            --data-binary "@${packageName}" \
         http://${museumAddr}/api/charts"""
     }
 }
