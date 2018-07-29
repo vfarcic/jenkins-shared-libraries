@@ -1,8 +1,12 @@
-def call(project, chartVersion, museumAddr) {
+def call(project, chartVersion, museumAddr, replaceTag) {
     sh "helm package helm/${project}"
     packageName = "${project}-${chartVersion}.tgz"
     if (chartVersion == "") {
         packageName = sh(returnStdout: true, script: "ls ${project}*").trim()
+    }
+    if (replaceTag) {
+        yaml = readYaml file: "heml/${project}/Chart.yaml"
+        echo "${yaml.version}"
     }
     withCredentials([usernamePassword(
         credentialsId: "chartmuseum",

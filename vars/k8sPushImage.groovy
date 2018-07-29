@@ -24,5 +24,4 @@
         ${image}:${currentBuild.displayName}"""
     sh """${prefix}docker image push \
         ${image}:latest"""
-    echo "Tags ${image}:${currentBuild.displayName} and ${image}:latest have been pushed to the registry."
  }
