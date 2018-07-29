@@ -9,7 +9,7 @@ def call(project, chartVersion, museumAddr) {
         usernameVariable: "USER",
         passwordVariable: "PASS"
     )]) {
-        sh """curl -u $USER:$PASS \
+        sh """pwd && curl -u $USER:$PASS \
             --data-binary "@${packageName}" \
         http://${museumAddr}/api/charts"""
     }
