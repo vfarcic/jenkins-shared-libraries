@@ -1,4 +1,6 @@
 def call(image, sudo = true) {
+
+    echo "test all this shit"
     escapedBranch = env.BRANCH_NAME
             .toString()
             .toLowerCase()
