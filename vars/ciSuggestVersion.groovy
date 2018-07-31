@@ -11,4 +11,6 @@ def call(version) {
             ])
         }
     } catch(err) { }
+
+    return env.newVersion
 }

@@ -1,11 +1,30 @@
-def call() {
-    sh "git fetch origin 'refs/tags/*:refs/tags/*'"
-    def version = sh(script: 'git tag -l | tail -n1', returnStdout: true).trim() ?: 'v1.0.0'
-    def parser = /(?<major>v\d+).(?<minor>\d+).(?<revision>\d+)/
-    def match = version =~ parser
-    match.matches()
-    def (major, minor, revision) = ['major', 'minor', 'revision'].collect { match.group(it) }
-    def nextVersion = "${major + "." + (minor.toInteger() + 1)}" + "." + revision
+def call(image, sudo = true) {
+    escapedBranch = env.BRANCH_NAME
+            .toString()
+            .toLowerCase()
+            .replace("/", "-")
+    tagBeta = env.BRANCH_NAME == 'master' ? ciVersionRead : escapedBranch
+    commitTag = env.shortGitCommit
 
-    return nextVersion
+
+    prefix = ""
+    if (sudo) {
+        prefix = "sudo "
+    }
+    sh """${prefix}docker image build \
+        -t ${image}:${tagBeta} ."""
+
+    sh """${prefix}docker tag \
+        ${image}:${tagBeta} ${image}:${commitTag} """
+
+    withCredentials([usernamePassword(
+            credentialsId: "docker",
+            usernameVariable: "USER",
+            passwordVariable: "PASS"
+    )]) {
+        sh """${prefix}docker login \
+            -u $USER -p $PASS"""
+    }
+    sh """${prefix}docker image push \
+        ${image}:${tagBeta}"""
 }
