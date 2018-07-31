@@ -3,7 +3,7 @@ def call(image, sudo = true) {
             .toString()
             .toLowerCase()
             .replace("/", "-")
-    tagBeta = env.BRANCH_NAME == 'master' ? ciVersionRead : escapedBranch
+    tagBeta = env.BRANCH_NAME == 'master' ? ciVersionRead() : escapedBranch
     commitTag = env.shortGitCommit
 
 
