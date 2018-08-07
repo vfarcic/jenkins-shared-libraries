@@ -1,5 +1,5 @@
 def call(project) {
-    chartName = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
+    chartName = ciChartNameRead(project)
     sh """kubectl -n ${project}-build \
         rollout status deployment \
         ${chartName.toLowerCase()}"""
