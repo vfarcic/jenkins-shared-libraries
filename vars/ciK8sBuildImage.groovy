@@ -1,22 +1,13 @@
 def call(image, sudo = true, tags = []) {
 
-    println(image)
-    println(sudo)
-    println(tags)
-
-    escapedBranch = env.BRANCH_NAME
-            .toString()
-            .toLowerCase()
-            .replace("/", "-")
-    tagBeta = env.BRANCH_NAME == 'master' ? ciVersionRead() : escapedBranch
-
+    tag = ciVersionRead()
 
     prefix = ""
     if (sudo) {
         prefix = "sudo "
     }
     sh """${prefix}docker image build \
-        -t ${image}:${tagBeta} ."""
+        -t ${image}:${tag} ."""
 
     withCredentials([usernamePassword(
             credentialsId: "docker",
@@ -27,11 +18,11 @@ def call(image, sudo = true, tags = []) {
             -u $USER -p $PASS"""
     }
     sh """${prefix}docker image push \
-        ${image}:${tagBeta}"""
+        ${image}:${tag}"""
 
-    tags.each { tag ->
-        sh """${prefix} docker tag ${image}:${tagBeta} ${image}:${tag}"""
-        sh """${prefix} docker push ${image}:${tag}"""
+    tags.each { t ->
+        sh """${prefix} docker tag ${image}:${tag} ${image}:${t}"""
+        sh """${prefix} docker push ${image}:${t}"""
     }
 
 }
