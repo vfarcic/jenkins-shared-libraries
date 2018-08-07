@@ -1,11 +1,10 @@
-def call(image, sudo = true, tags= []) {
+def call(image, sudo = true, tags = []) {
 
     escapedBranch = env.BRANCH_NAME
             .toString()
             .toLowerCase()
             .replace("/", "-")
     tagBeta = env.BRANCH_NAME == 'master' ? ciVersionRead() : escapedBranch
-    commitTag = env.shortGitCommit
 
 
     prefix = ""
@@ -14,9 +13,6 @@ def call(image, sudo = true, tags= []) {
     }
     sh """${prefix}docker image build \
         -t ${image}:${tagBeta} ."""
-
-    sh """${prefix}docker tag \
-        ${image}:${tagBeta} ${image}:${commitTag} """
 
     withCredentials([usernamePassword(
             credentialsId: "docker",
