@@ -1,6 +1,5 @@
-def call(project, domain, extraValues = "") {
+def call(project, domain, tag, extraValues = "") {
 
-    tag = ciVersionRead()
     chartName = ciChartNameRead(project)
     addr = ciAddressRead(project, domain)
 
