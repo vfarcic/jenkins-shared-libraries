@@ -30,10 +30,8 @@ def call(image, sudo = true, tags = []) {
         ${image}:${tagBeta}"""
 
     tags.each { tag ->
-        echo "tagging with ${tag}"
-
-        sh """${pefix} docker tag ${image}:${tagBeta} ${image}:${tag}"""
-        sh """${pefix} docker push ${image}:${tag}"""
+        sh """${prefix} docker tag ${image}:${tagBeta} ${image}:${tag}"""
+        sh """${prefix} docker push ${image}:${tag}"""
     }
 
 }
