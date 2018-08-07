@@ -1,6 +1,5 @@
-def call(image, sudo = true) {
+def call(image, sudo = true, tags= []) {
 
-    echo "test all this shit"
     escapedBranch = env.BRANCH_NAME
             .toString()
             .toLowerCase()
@@ -29,4 +28,10 @@ def call(image, sudo = true) {
     }
     sh """${prefix}docker image push \
         ${image}:${tagBeta}"""
+
+    tags.each { tag ->
+        sh """${pefix} docker tag ${image}:${tagBeta} ${image}:${tag}"""
+        sh """${pefix} docker push ${image}:${tag}"""
+    }
+
 }
