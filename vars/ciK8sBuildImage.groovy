@@ -1,6 +1,4 @@
-def call(image, sudo = true, tags = []) {
-
-    tag = ciVersionRead()
+def call(image, sudo = true, tag, extraTags = []) {
 
     prefix = ""
     if (sudo) {
@@ -20,7 +18,7 @@ def call(image, sudo = true, tags = []) {
     sh """${prefix}docker image push \
         ${image}:${tag}"""
 
-    tags.each { t ->
+    extraTags.each { t ->
         sh """${prefix} docker tag ${image}:${tag} ${image}:${t}"""
         sh """${prefix} docker push ${image}:${t}"""
     }
