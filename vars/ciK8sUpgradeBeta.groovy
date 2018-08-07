@@ -1,7 +1,9 @@
 def call(project, domain, extraValues = "") {
+
     tag = ciVersionRead()
-    chartName = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}"
-    addr = "${project}-${env.BUILD_NUMBER}-${env.BRANCH_NAME}.${domain}"
+    chartName = ciChartNameRead(project)
+    addr = ciAddressRead(project, domain)
+
     sh """helm upgrade \
         ${chartName.toLowerCase()} \
         helm/${project} -i \

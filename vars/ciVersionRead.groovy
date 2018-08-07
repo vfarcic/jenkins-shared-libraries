@@ -3,5 +3,6 @@ def call() {
             .toString()
             .toLowerCase()
             .replace("/", "-")
-    tagBeta = env.BRANCH_NAME == 'master' ? ciMasterVersionRead() : escapedBranch
+    tag = env.BRANCH_NAME == 'master' ? ciMasterVersionRead() : escapedBranch
+    return tag
 }
