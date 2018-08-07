@@ -1,5 +1,9 @@
 def call(image, sudo = true, tags = []) {
 
+    println(image)
+    println(sudo)
+    println(tags)
+
     escapedBranch = env.BRANCH_NAME
             .toString()
             .toLowerCase()
@@ -26,6 +30,8 @@ def call(image, sudo = true, tags = []) {
         ${image}:${tagBeta}"""
 
     tags.each { tag ->
+        echo "tagging with ${tag}"
+
         sh """${pefix} docker tag ${image}:${tagBeta} ${image}:${tag}"""
         sh """${pefix} docker push ${image}:${tag}"""
     }
