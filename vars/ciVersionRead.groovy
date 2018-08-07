@@ -3,6 +3,15 @@ def call() {
             .toString()
             .toLowerCase()
             .replace("/", "-")
-    tag = env.BRANCH_NAME == 'master' ? ciMasterVersionRead() : escapedBranch
+
+    tag = ""
+    if(env.BRANCH_NAME == 'master') {
+        tag = bumpUpVersion(ciMasterVersionRead(), "minor")
+    } else if (env.BRANCH_NAME.toString().startsWith("hotfix")) {
+        tag = bumpUpVersion(ciMasterVersionRead(), "revision")
+    } else  {
+        tag = escapedBranch
+    }
+
     return tag
 }
