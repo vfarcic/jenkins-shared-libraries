@@ -14,7 +14,7 @@ def call(tag, sudo = true, extratags = []) {
             -u $USER -p $PASS"""
     }
 
-    extraTags.each { t ->
+    extratags.each { t ->
         sh """${prefix} docker tag ${image}:${tag} ${image}:${t}"""
         sh """${prefix} docker push ${image}:${t}"""
     }
