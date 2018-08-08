@@ -1,8 +1,10 @@
 def call(version) {
     //Give a chance for a custom version
+    def newVersion = version
     try {
-        timeout(time: 15, unit: 'SECONDS') { // change to a convenient timeout for you
-            env.newVersion = input(
+        // change to a convenient timeout for you
+        timeout(time: 15, unit: 'SECONDS') {
+            newVersion = input(
                     id: 'SuggestVersion', message: 'Build auto version ?', parameters: [
                     [$class: 'StringParameterDefinition',
                      defaultValue: version,
@@ -12,5 +14,6 @@ def call(version) {
         }
     } catch(err) { }
 
-    return env.newVersion
+    echo "user confirmed build version: $newVersion"
+    return newVersion
 }

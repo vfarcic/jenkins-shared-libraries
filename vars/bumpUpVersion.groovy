@@ -1,5 +1,7 @@
 def call(version, semantic) {
 
+    echo "bumping up version: $version"
+
     def parser = /(?<major>v\d+).(?<minor>\d+).(?<revision>\d+)/
     def match = version =~ parser
     match.matches()
@@ -13,7 +15,6 @@ def call(version, semantic) {
     } else {
         nextVersion = "${major}" + "." + minor + "." + ${revision.toInteger() + 1}
     }
-
 
     userNextVersion = ciSuggestVersion(nextVersion)
     return userNextVersion
