@@ -12,7 +12,7 @@ def call(tunk) {
             sh 'chmod +x local_ssh.sh'
         }
 
-        withEnv(['GIT_SSH=local_ssh.sh']) {
+        withEnv(['GIT_SSH_COMMAND=local_ssh.sh']) {
             echo "############### running tunk "
             tunk()
         }
