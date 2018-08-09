@@ -16,5 +16,5 @@ def call(version, semantic) {
         nextVersion = "${major}" + "." + minor + "." + ${revision.toInteger() + 1}
     }
 
-    return userNextVersion
+    return nextVersion
 }
