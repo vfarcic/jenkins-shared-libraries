@@ -8,6 +8,7 @@ def call(tunk) {
         if(!exists) {
             echo "############### file does not exist"
             sh 'echo ssh -i $SSH_KEY -l git -o StrictHostKeyChecking=no \\"\\$@\\" > local_ssh.sh'
+            sh 'cat local_ssh.sh'
             sh 'chmod +x local_ssh.sh'
         }
 
