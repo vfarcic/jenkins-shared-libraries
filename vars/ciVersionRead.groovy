@@ -7,10 +7,10 @@ def call() {
     tag = ""
     if(env.BRANCH_NAME == 'master') {
         echo "##### master branch detected"
-        tag = bumpUpVersion(ciMasterVersionRead(), "minor")
+        tag = ciBumpUpVersion(ciMasterVersionRead(), "minor")
     } else if (env.BRANCH_NAME.toString().startsWith("hotfix")) {
         echo "##### hotfix branch detected"
-        tag = bumpUpVersion(ciMasterVersionRead(), "revision")
+        tag = ciBumpUpVersion(ciMasterVersionRead(), "revision")
     } else  {
         echo "##### feature branch detected"
         tag = escapedBranch
