@@ -4,12 +4,15 @@ def call(tunk) {
         //for subsequent runs
         def exists = fileExists 'local_ssh.sh'
 
+        echo "############### checking if file exist"
         if(!exists) {
+            echo "############### file does not exist"
             sh 'echo ssh -i $SSH_KEY -l git -o StrictHostKeyChecking=no \\"\\$@\\" > local_ssh.sh'
             sh 'chmod +x local_ssh.sh'
         }
 
         withEnv(['GIT_SSH=local_ssh.sh']) {
+            echo "############### running tunk "
             tunk()
         }
     }
