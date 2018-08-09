@@ -16,6 +16,5 @@ def call(version, semantic) {
         nextVersion = "${major}" + "." + minor + "." + ${revision.toInteger() + 1}
     }
 
-    userNextVersion = ciSuggestVersion(nextVersion)
     return userNextVersion
 }

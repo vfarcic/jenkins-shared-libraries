@@ -8,7 +8,7 @@ def call(tag) {
             sh """ git config --global user.email "tigran@mna.com" """
             sh """ git config --global user.name "Tigran Mna" """
 
-            sh "git tag -a $tag ${env.GIT_COMMIT}"
+            sh "git tag $tag ${env.GIT_COMMIT}"
             sh "git push origin $tag "
         }
     }
