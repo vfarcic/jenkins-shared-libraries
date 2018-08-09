@@ -1,6 +1,6 @@
 def call(tag) {
 
-    withGitKey {
+    ciWithGitKey {
         //ugly, but could not make it work globally... jenkins sometimes makes me hate my life
         sh """ git config --global user.email "tigran@mna.com" """
         sh """ git config --global user.name "Tigran Mna" """
