@@ -1,8 +1,5 @@
 def call() {
-    escapedBranch = env.BRANCH_NAME
-            .toString()
-            .toLowerCase()
-            .replace("/", "-")
+    escapedBranch = ciEscapeBranchName()
 
     tag = ""
     if(env.BRANCH_NAME == 'master') {

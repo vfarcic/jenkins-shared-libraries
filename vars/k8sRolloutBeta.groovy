@@ -5,8 +5,4 @@ def call(project) {
     sh """kubectl -n jenkins \
         rollout status deployment \
         ${chartName.toLowerCase()}"""
-
-//    sh """kubectl -n ${project}-build \
-//        rollout status deployment \
-//        ${chartName.toLowerCase()}"""
 }
