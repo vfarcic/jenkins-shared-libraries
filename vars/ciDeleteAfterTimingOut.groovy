@@ -10,6 +10,7 @@ def call(time, unit, Closure tunk) {
             container('helm') {
                 k8sDeleteBeta(params.project)
             }
+            currentBuild.result = 'SUCCESS'
         } else {
             currentBuild.result = 'FAILURE'
         }
