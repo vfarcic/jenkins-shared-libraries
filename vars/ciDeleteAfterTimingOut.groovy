@@ -11,9 +11,13 @@ def call(time, unit, Closure tunk) {
                 k8sDeleteBeta(er.project)
             }
             currentBuild.result = 'SUCCESS'
+        } else if (env.userInput == true) {
+            currentBuild.result = 'SUCCESS'
         } else {
+            echo "this was not successful"
             currentBuild.result = 'FAILURE'
         }
+
 
     }
 }
