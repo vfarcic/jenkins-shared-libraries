@@ -9,12 +9,17 @@ def call(version, semantic) {
 
     nextVersion = version
     if(semantic == "major") {
+        echo "bumping up major version ${major}"
         nextVersion = "${(major.toInteger() + 1)}" + "." + minor + "." + revision
     } else if(semantic == "minor") {
+        echo "bumping up minor version ${minor}"
         nextVersion = "${major}" + "." + "${(minor.toInteger() + 1)}" + "." + revision
     } else {
-        nextVersion = "${major}" + "." + minor + "." + ${revision.toInteger() + 1}
+        echo "bumping up revision version ${revision}"
+        nextVersion = "${major}" + "." + "${minor}" + "." + "${revision.toInteger() + 1}"
     }
+
+    echo "next version is set to: $nextVersion"
 
     return nextVersion
 }
