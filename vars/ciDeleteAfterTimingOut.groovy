@@ -8,7 +8,7 @@ def call(time, unit, Closure tunk) {
         def user = err.getCauses()[0].getUser()
         if ('SYSTEM' == user.toString()) { // SYSTEM means timeout.
             container('helm') {
-                k8sDeleteBeta(er.project)
+                ciK8sDeleteBeta(er.project)
             }
             currentBuild.result = 'SUCCESS'
         } else if (env.userInput != null) {
