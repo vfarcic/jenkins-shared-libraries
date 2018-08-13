@@ -17,7 +17,5 @@ def call(time, unit, Closure tunk) {
             echo "this was not successful"
             currentBuild.result = 'FAILURE'
         }
-
-
     }
 }
