@@ -2,7 +2,7 @@ def call() {
 
     def version = ciVersionRead()
 
-    if(env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith("hotfix")) {
+    if(ciCheckReleaseBranches()) {
         version = "RC-" + version + "-b${env.BUILD_ID}"
     }
 
