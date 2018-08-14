@@ -5,7 +5,8 @@ def call(time, unit, Closure tunk) {
         }
     }
     catch (err) {
-        def user = err.getCauses()[0].getUser()
+        //https://stackoverflow.com/questions/50050076/jenkins-pipeline-java-io-notserializableexception-hudson-model-user-when-exec
+        def user = err.getCauses()[0].getUser().toString()
 
         if ('SYSTEM' == user.toString()) { // SYSTEM means timeout.
             echo "no input was received before timeout"
