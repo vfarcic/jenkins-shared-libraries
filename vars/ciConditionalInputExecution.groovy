@@ -4,8 +4,6 @@ def call(id, message, ok, name, Closure tunk) {
             ok: ok,
             parameters: [[$class: 'BooleanParameterDefinition',  description: '', name: name]])
 
-    println (" ###############" + userInput )
-
     if(userInput == true) {
         tunk()
     } else {
