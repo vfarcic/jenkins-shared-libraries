@@ -1,14 +1,5 @@
 def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = false) {
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
-
-        //git version => chart version
-        chartVersion = chartVersion.replace("v","")
-
-        chartYaml = readYaml file: "helm/${project}/Chart.yaml"
-        chartYaml.version = chartVersion
-        sh "rm -f helm/${project}/Chart.yaml"
-        writeYaml file: "helm/${project}/Chart.yaml", data: chartYaml
-
         if (failIfExists) {
             yaml = readYaml file: "helm/${project}/Chart.yaml"
             out = sh returnStdout: true, script: "curl -u $USER:$PASS http://${museumAddr}/api/charts/${project}/${yaml.version}"
@@ -23,11 +14,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
             writeYaml file: "helm/${project}/values.yaml", data: yaml
         }
 
-        sh "helm package helm/${project}"
-        packageName = "${project}-${chartVersion}.tgz"
-        if (chartVersion == "") {
-            packageName = sh(returnStdout: true, script: "ls ${project}*").trim()
-        }
-        sh """curl -u $USER:$PASS --data-binary "@${packageName}" http://${museumAddr}/api/charts"""
+        sh "helm repo add chartmuseum http://${museumAddr} --username admin --password admin"
+        sh "helm push helm/go-demo-3/ --version=${chartVersion.replace("v","")} chartmuseum --username admin --password admin"
     }
 }
