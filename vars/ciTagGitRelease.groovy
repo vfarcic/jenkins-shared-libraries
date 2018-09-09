@@ -1,10 +1,7 @@
-def call(tag) {
+def call(Map config) {
+    sh "git config user.email ${config?.email ?: 'jenkins@example.com'} && git config user.name ${config?.username ?: 'Jenkins'}"
 
-    //ugly, but could not make it work globally... jenkins sometimes makes me hate my life
-    sh """ git config --global user.email "tigran@mna.com" """
-    sh """ git config --global user.name "Tigran Mna" """
-
-    sh "git tag $tag ${env.GIT_COMMIT}"
-    sh "git push origin $tag "
+    sh "git tag ${config.tag} ${env.GIT_COMMIT}"
+    sh "git push origin ${config.tag} "
 
 }
