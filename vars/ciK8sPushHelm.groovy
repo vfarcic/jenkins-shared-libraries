@@ -1,6 +1,9 @@
 def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = false) {
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
 
+        //git version => chart version
+        chartVersion.replace("v","")
+
         chartYaml = readYaml file: "helm/${project}/Chart.yaml"
         chartYaml.version = chartVersion
         sh "rm -f helm/${project}/Chart.yaml"
