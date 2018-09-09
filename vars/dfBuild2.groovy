@@ -1,7 +1,7 @@
 /*******************************************
  * Build and tag images
  ******************************************/ 
-def call(String project) {
+def call(String project, String goxImage = "vfarcic/gox") {
     // Build image for linux-amd64
     sh "docker image build -t dockerflow/${project}:linux-amd64 ."
     
@@ -19,8 +19,8 @@ def call(String project) {
         tar xzf qemu-arm-static.tar.gz
         popd"
     """
-    sh "docker container run --rm -v \${PWD}:/src vfarcic/gox ${project}"
     
+    sh "docker container run --rm -v \${PWD}:/src ${goxImage} ${project}"
     // Build docker image for linux-arm
     sh "docker image build -t dockerflow/${project}:linux-arm -f Dockerfile.linux-arm ."
     

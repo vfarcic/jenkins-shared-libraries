@@ -1,0 +1,12 @@
+## Runs functional tests in Go
+
+Executes the tests with `UnitTest` in their name and builds a binary
+
+**Arguments:**
+
+* **binary**: the name of the binary
+
+**Requirements:**
+
+* A node with Go
+
