@@ -14,8 +14,8 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
             writeYaml file: "helm/${project}/values.yaml", data: yaml
         }
 
-//        sh "helm repo add chartmuseum http://${museumAddr} --username admin --password admin"
         sh "helm repo add chartmuseum http://${museumAddr} "
+        sh "helm init --client-only"
         sh "helm push helm/go-demo-3/ --version=${chartVersion.replace("v","")} chartmuseum --username admin --password admin"
     }
 }
