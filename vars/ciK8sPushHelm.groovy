@@ -24,6 +24,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
             writeYaml file: "helm/${project}/values.yaml", data: yaml
         }
 
+        sh "helm init --client-only"
         sh "helm package helm/${project}"
         packageName = "${project}-${chartVersion}.tgz"
         sh """curl -u $USER:$PASS --data-binary "@${packageName}" http://${museumAddr}/api/charts"""
