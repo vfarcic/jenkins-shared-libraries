@@ -25,8 +25,12 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
         }
 
         sh "helm init --client-only"
-        sh "helm package helm/${project}"
-        packageName = "${project}-${chartVersion}.tgz"
-        sh """curl -u $USER:$PASS --data-binary "@${packageName}" http://${museumAddr}/api/charts"""
+//        sh "helm package helm/${project}"
+        sh "helm repo add chartmuseum http://${museumAddr} "
+        
+        sh "helm push helm/go-demo-3/ --version=${chartVersion.replace("v","")} chartmuseum --username $USER --password $PASS"
+
+//        packageName = "${project}-${chartVersion}.tgz"
+//        sh """curl -u $USER:$PASS --data-binary "@${packageName}" http://${museumAddr}/api/charts"""
     }
 }
