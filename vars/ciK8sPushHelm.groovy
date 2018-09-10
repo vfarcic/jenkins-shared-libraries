@@ -19,7 +19,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
         }
         if (replaceTag) {
             yaml = readYaml file: "helm/${project}/values.yaml"
-            yaml.image.tag = currentBuild.displayName
+            yaml.image.tag = chartVersion
             sh "rm -f helm/${project}/values.yaml"
             writeYaml file: "helm/${project}/values.yaml", data: yaml
         }
