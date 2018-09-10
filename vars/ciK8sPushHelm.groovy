@@ -4,10 +4,10 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
 
         chartVersion = chartVersion.replace("v","")
 
-        chartYaml = readYaml file: "helm/${project}/Chart.yaml"
-        chartYaml.version = chartVersion
-        sh "rm -f helm/${project}/Chart.yaml"
-        writeYaml file: "helm/${project}/Chart.yaml", data: chartYaml
+        ciUpdateYamlFile(
+                yamlFile: "helm/${project}/Chart.yaml",
+                params: ["version": chartVersion]
+        )
 
 
         if (failIfExists) {
@@ -17,11 +17,12 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
                 error "Did you forget to increment the Chart version?"
             }
         }
+
         if (replaceTag) {
-            yaml = readYaml file: "helm/${project}/values.yaml"
-            yaml.image.tag = chartVersion
-            sh "rm -f helm/${project}/values.yaml"
-            writeYaml file: "helm/${project}/values.yaml", data: yaml
+            ciUpdateYamlFile(
+                    yamlFile: "helm/${project}/values.yaml",
+                    params: ["image.tag": chartVersion]
+            )
         }
         
         sh "helm package helm/${project}"
