@@ -1,12 +1,13 @@
-def call(id, message, ok, name, Closure tunk) {
-    def userInput = input(id: id,
-            message: message,
-            ok: ok,
-            parameters: [[$class: 'BooleanParameterDefinition',  description: '', name: name]])
-
+def call(Map config, Closure thunk) {
+    def userInput = input(
+        id: config.id,
+        message: config.message,
+        ok: config.ok,
+        parameters: [[$class: 'BooleanParameterDefinition', description: '', name: config.name]])
     if(userInput == true) {
-        tunk()
+        thunk()
     } else {
         echo "noop"
     }
+
 }
