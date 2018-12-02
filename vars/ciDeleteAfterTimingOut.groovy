@@ -1,7 +1,7 @@
-def call(time, unit, Closure tunk) {
+def call(time, unit, Closure thunk) {
     try {
         timeout(time: time, unit: unit) {
-            tunk()
+            thunk()
         }
     }
     catch (err) {
