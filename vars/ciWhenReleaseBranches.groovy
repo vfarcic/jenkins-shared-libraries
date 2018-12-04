@@ -1,5 +1,5 @@
-def call(Closure tunk) {
+def call(Closure thunk) {
     if(ciCheckReleaseBranches()) {
-        tunk()
+        thunk()
     }
 }

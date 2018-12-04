@@ -1,7 +1,8 @@
-def call(time, unit, Closure tunk) {
+def call(time, unit, Closure timeoutFunction = { println 'noop' } , Closure thunk) {
+    
     try {
         timeout(time: time, unit: unit) {
-            tunk()
+            thunk()
         }
     }
     catch (err) {
@@ -9,8 +10,7 @@ def call(time, unit, Closure tunk) {
         def user = err.getCauses()[0].getUser().toString()
 
         if ('SYSTEM' == user.toString()) { // SYSTEM means timeout.
-            echo "no input was received before timeout"
-            ciK8sDeleteBeta(params.project)
+            timeoutFunction()
             currentBuild.result = 'SUCCESS'
         } else {
             echo "this was not successful"

@@ -10,10 +10,10 @@ def call(version, semantic) {
     nextVersion = version
     if(semantic == "major") {
         echo "bumping up major version ${major}"
-        nextVersion = "${(major.toInteger() + 1)}" + "." + minor + "." + revision
+        nextVersion = "${(major.toInteger() + 1)}" + "." + 0 + "." + 0
     } else if(semantic == "minor") {
         echo "bumping up minor version ${minor}"
-        nextVersion = "${major}" + "." + "${(minor.toInteger() + 1)}" + "." + revision
+        nextVersion = "${major}" + "." + "${(minor.toInteger() + 1)}" + "." + 0
     } else {
         echo "bumping up revision version ${revision}"
         nextVersion = "${major}" + "." + "${minor}" + "." + "${revision.toInteger() + 1}"
