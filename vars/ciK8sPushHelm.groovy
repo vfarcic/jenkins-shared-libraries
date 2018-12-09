@@ -2,6 +2,7 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
     withCredentials([usernamePassword(credentialsId: "chartmuseum", usernameVariable: "USER", passwordVariable: "PASS")]) {
 
 
+        //update chart version
         ciUpdateYamlFile(
                 yamlFile: "helm/${project}/Chart.yaml",
                 params: ["version": chartVersion]
@@ -16,10 +17,10 @@ def call(project, chartVersion, museumAddr, replaceTag = false, failIfExists = f
         }
 
         if (replaceTag) {
-            ciUpdateYamlFile(
-                    yamlFile: "helm/${project}/values.yaml",
-                    params: ["image.tag": chartVersion]
-            )
+            yaml = readYaml file: "helm/${project}/values.yaml"
+            yaml.image.tag = chartVersion
+            sh "rm -f helm/${project}/values.yaml"
+            writeYaml file: "helm/${project}/values.yaml", data: yaml
         }
         
         sh "helm package helm/${project}"
